@@ -289,6 +289,27 @@ const initFileHandler = (scene: Scene, events: Events, dropTarget: HTMLElement, 
         }
     });
 
+    events.function('doc.openurl', async () => {
+        try {
+            const userURL =  window.prompt('Hi there!');
+            // do something with it
+            // NOTE: might be able to just send the url to handleLoad without prefetch
+            // tried this with a file hosted on my CS site - didn't work
+            // https://pages.cs.wisc.edu/~finn/uploads/point_cloud.cropped.ply
+            // looks like they restrict access programattically like that
+            // Content-Security-Policy: The page’s settings blocked the loading of a resource because it violates the following directive: “connect-src 'self'
+            //const file = await fetch(userURL).then(r => r.blob());
+            //const url = URL.createObjectURL(file);
+            //await handleLoad(url);
+            //URL.revokeObjectURL(url);
+            await handleImport(userURL);
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                console.error(error);
+            }
+        }
+    });
+
     // open a folder
     events.function('scene.openAnimation', async () => {
         try {

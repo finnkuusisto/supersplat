@@ -138,6 +138,12 @@ class Menu extends Container {
                 await events.invoke('doc.open');
             }
         }, {
+            text: 'Open URL',
+            icon: createSvg(sceneOpen),
+            onSelect: async () => {
+                await events.invoke('doc.openurl');
+            }
+        }, {
             // separator
         }, {
             text: localize('file.save'),
