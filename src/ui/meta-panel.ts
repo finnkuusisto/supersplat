@@ -31,7 +31,7 @@ class MetaPanel extends Container {
         });
 
         const sceneIcon = new Label({
-            text: '\uE344',
+            text: '🛈',
             class: 'panel-header-icon'
         });
 
@@ -40,40 +40,16 @@ class MetaPanel extends Container {
             class: 'panel-header-label'
         });
 
-        const sceneImport = new Container({
-            class: 'panel-header-button'
-        });
-        sceneImport.dom.appendChild(createSvg(sceneImportSvg));
-
-        const sceneNew = new Container({
-            class: 'panel-header-button'
-        });
-        sceneNew.dom.appendChild(createSvg(sceneNewSvg));
-
         sceneHeader.append(sceneIcon);
         sceneHeader.append(sceneLabel);
-        sceneHeader.append(sceneImport);
-        sceneHeader.append(sceneNew);
 
-        sceneImport.on('click', async () => {
-            await events.invoke('scene.import');
+        const metaDataContainer = new Container({
+            class: 'meta-data-container',
+            height: 100
         });
-
-        sceneNew.on('click', () => {
-            events.invoke('doc.new');
-        });
-
-        tooltips.register(sceneImport, 'Import Scene', 'top');
-        tooltips.register(sceneNew, 'New Scene', 'top');
-
-        const dummySplatList = new SplatList(events);
-
-        const metaListContainer = new Container({
-            class: 'meta-data-container'
-        });
-        metaListContainer.append(dummySplatList);
 
         this.append(sceneHeader);
+        this.append(metaDataContainer);
         this.append(new Element({
             class: 'panel-header',
             height: 20
