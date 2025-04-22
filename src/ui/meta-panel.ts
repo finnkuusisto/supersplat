@@ -45,7 +45,7 @@ class MetaPanel extends Container {
 
         const metaDataContainer = new Container({
             class: 'meta-data-container',
-            height: 100
+            height: 90
         });
 
         this.append(sceneHeader);

@@ -172,11 +172,6 @@ class Menu extends Container {
             text: localize('file.export'),
             icon: createSvg(sceneExport),
             subMenu: exportMenuPanel
-        }, {
-            text: localize('file.publish'),
-            icon: createSvg(scenePublish),
-            isEnabled: () => !events.invoke('scene.empty'),
-            onSelect: () => events.invoke('scene.publish')
         }]);
 
         const selectionMenuPanel = new MenuPanel([{
@@ -234,34 +229,6 @@ class Menu extends Container {
             text: localize('help.shortcuts'),
             icon: 'E136',
             onSelect: () => events.fire('show.shortcuts')
-        }, {
-            text: localize('help.user-guide'),
-            icon: 'E232',
-            onSelect: () => window.open('https://github.com/playcanvas/supersplat/wiki', '_blank').focus()
-        }, {
-            text: localize('help.log-issue'),
-            icon: 'E336',
-            onSelect: () => window.open('https://github.com/playcanvas/supersplat/issues', '_blank').focus()
-        }, {
-            text: localize('help.github-repo'),
-            icon: 'E259',
-            onSelect: () => window.open('https://github.com/playcanvas/supersplat', '_blank').focus()
-        }, {
-            // separator
-        }, {
-            text: localize('help.basics-video'),
-            icon: 'E261',
-            onSelect: () => window.open('https://youtu.be/MwzaEM2I55I', '_blank').focus()
-        }, {
-            // separator
-        }, {
-            text: localize('help.discord'),
-            icon: 'E233',
-            onSelect: () => window.open('https://discord.gg/T3pnhRTTAY', '_blank').focus()
-        }, {
-            text: localize('help.forum'),
-            icon: 'E432',
-            onSelect: () => window.open('https://forum.playcanvas.com', '_blank').focus()
         }, {
             // separator
         }, {
