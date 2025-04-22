@@ -22,6 +22,7 @@ import { ViewCube } from './view-cube';
 import { ViewPanel } from './view-panel';
 import { ViewerExportPopup } from './viewer-export-popup';
 import { version } from '../../package.json';
+import { MetaPanel } from './meta-panel';
 
 class EditorUI {
     appContainer: Container;
@@ -111,6 +112,7 @@ class EditorUI {
         tooltipsContainer.append(tooltips);
 
         // bottom toolbar
+        const metaPanel = new MetaPanel(events, tooltips);
         const scenePanel = new ScenePanel(events, tooltips);
         const viewPanel = new ViewPanel(events, tooltips);
         const cameraPanel = new CameraPanel(events, tooltips);
@@ -124,6 +126,7 @@ class EditorUI {
         canvasContainer.append(appLabel);
         canvasContainer.append(cursorLabel);
         canvasContainer.append(toolsContainer);
+        canvasContainer.append(metaPanel);
         canvasContainer.append(scenePanel);
         canvasContainer.append(viewPanel);
         canvasContainer.append(cameraPanel);

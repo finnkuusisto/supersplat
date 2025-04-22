@@ -1,0 +1,14 @@
+#meta-panel {
+    top: 102px;
+    left: 350px;
+    width: 320px;
+}
+
+.collapsed #meta-panel {
+    display: none;
+}
+
+.meta-data-container {
+    max-height: 300px;
+    overflow: auto;
+}
