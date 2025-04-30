@@ -26,7 +26,15 @@ class MetadataItem extends Container {
         });
 
         // check for metadata comments
-        //splat.asset._resources
+        const comments = splat.asset._resources[0].comments;
+        for (let i = 0; i < comments.length; i++) {
+            const cmt = comments[i];
+            if (cmt.startsWith("METADATA ")) {
+                const mdata = JSON.parse(cmt.slice(9));
+                text.value = JSON.stringify(mdata);
+                break;
+            }
+        }
 
         this.append(text);
 
