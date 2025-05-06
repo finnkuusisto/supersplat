@@ -21,6 +21,7 @@ class SplatItem extends Container {
     getVisible: () => boolean;
     setVisible: (value: boolean) => void;
     destroy: () => void;
+    metadata: string;
 
     constructor(splat: Splat, args = {}) {
         args = {
@@ -61,6 +62,18 @@ class SplatItem extends Container {
         this.append(visible);
         this.append(invisible);
         this.append(remove);
+
+        // check for metadata comments
+        // start with a default
+        this.metadata = 'No Metadata';
+        const comments = splat.asset._resources[0].comments;
+        for (let i = 0; i < comments.length; i++) {
+            const cmt = comments[i];
+            if (cmt.startsWith("METADATA ")) {
+                this.metadata = cmt.slice(9);
+                break;
+            }
+        }
 
         this.getName = () => {
             return text.value;
@@ -114,7 +127,14 @@ class SplatItem extends Container {
             this.emit('removeClicked', this);
         };
 
+        // pop up a window if the metadata info icon is clicked
+        const handleMetaClick = (event: MouseEvent) => {
+            event.stopPropagation();
+            this.emit('metadataClicked', this);
+        };
+
         // handle clicks
+        meta.dom.addEventListener('click', handleMetaClick);
         visible.dom.addEventListener('click', toggleVisible);
         invisible.dom.addEventListener('click', toggleVisible);
         remove.dom.addEventListener('click', handleRemove);
@@ -246,6 +266,15 @@ class SplatList extends Container {
                 splat.destroy();
             }
         });
+
+        this.on('metadataClicked', async (item: SplatItem) => {
+
+            await events.invoke('showPopup', {
+                type: 'info',
+                header: 'Splat Metadata',
+                message: '\n' + item.metadata
+            });
+        });
     }
 
     protected _onAppendChild(element: PcuiElement): void {
@@ -259,6 +288,10 @@ class SplatList extends Container {
             element.on('removeClicked', () => {
                 this.emit('removeClicked', element);
             });
+
+            element.on('metadataClicked', () => {
+                this.emit('metadataClicked', element);
+            });
         }
     }
 
@@ -266,6 +299,7 @@ class SplatList extends Container {
         if (element instanceof SplatItem) {
             element.unbind('click');
             element.unbind('removeClicked');
+            element.unbind('metadataClicked');
         }
 
         super._onRemoveChild(element);

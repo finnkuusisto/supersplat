@@ -296,8 +296,9 @@ const initFileHandler = (scene: Scene, events: Events, dropTarget: HTMLElement, 
             // NOTE: might be able to just send the url to handleLoad without prefetch
             // tried this with a file hosted on my CS site - didn't work
             // https://pages.cs.wisc.edu/~finn/uploads/point_cloud.cropped.ply
-            // looks like they restrict access programattically like that
+            // looks like access is restricted like that
             // Content-Security-Policy: The page’s settings blocked the loading of a resource because it violates the following directive: “connect-src 'self'
+            // standard web policy I guess...
             //const file = await fetch(userURL).then(r => r.blob());
             //const url = URL.createObjectURL(file);
             //await handleLoad(url);
