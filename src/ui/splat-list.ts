@@ -6,6 +6,7 @@ import { Splat } from '../splat';
 import deleteSvg from './svg/delete.svg';
 import hiddenSvg from './svg/hidden.svg';
 import shownSvg from './svg/shown.svg';
+import infoSvg from './svg/info.svg';
 
 const createSvg = (svgString: string) => {
     const decodedStr = decodeURIComponent(svgString.substring('data:image/svg+xml,'.length));
@@ -21,7 +22,7 @@ class SplatItem extends Container {
     setVisible: (value: boolean) => void;
     destroy: () => void;
 
-    constructor(name: string, args = {}) {
+    constructor(splat: Splat, args = {}) {
         args = {
             ...args,
             class: ['splat-item', 'visible']
@@ -31,8 +32,13 @@ class SplatItem extends Container {
 
         const text = new Label({
             class: 'splat-item-text',
-            text: name
+            text: splat.name
         });
+
+        const meta = new PcuiElement({
+            dom: createSvg(infoSvg),
+            class: 'splat-item-info'
+        })
 
         const visible = new PcuiElement({
             dom: createSvg(shownSvg),
@@ -51,6 +57,7 @@ class SplatItem extends Container {
         });
 
         this.append(text);
+        this.append(meta);
         this.append(visible);
         this.append(invisible);
         this.append(remove);
@@ -158,7 +165,7 @@ class SplatList extends Container {
         events.on('scene.elementAdded', (element: Element) => {
             if (element.type === ElementType.splat) {
                 const splat = element as Splat;
-                const item = new SplatItem(splat.name);
+                const item = new SplatItem(splat);
                 this.append(item);
                 items.set(splat, item);
 

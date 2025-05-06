@@ -72,3 +72,21 @@
         color: $text-primary;
     }
 }
+
+.splat-item-info {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    padding: 4px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+
+    color: $text-secondary;
+
+    cursor: pointer;
+
+    &:hover {
+        color: $text-primary;
+    }
+}
