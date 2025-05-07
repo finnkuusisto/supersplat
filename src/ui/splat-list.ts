@@ -71,6 +71,12 @@ class SplatItem extends Container {
             const cmt = comments[i];
             if (cmt.startsWith("METADATA ")) {
                 this.metadata = cmt.slice(9);
+                // format it for later
+                try {
+                    this.metadata = JSON.stringify(JSON.parse(this.metadata), null, 2);
+                } catch (e) {
+                    // not JSON - just stick with the plain text I guess?
+                }
                 break;
             }
         }
@@ -272,7 +278,7 @@ class SplatList extends Container {
             await events.invoke('showPopup', {
                 type: 'info',
                 header: 'Splat Metadata',
-                message: JSON.stringify(JSON.parse(item.metadata))
+                message: item.metadata
             });
         });
     }
