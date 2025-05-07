@@ -272,7 +272,7 @@ class SplatList extends Container {
             await events.invoke('showPopup', {
                 type: 'info',
                 header: 'Splat Metadata',
-                message: '\n' + item.metadata
+                message: JSON.stringify(JSON.parse(item.metadata))
             });
         });
     }
